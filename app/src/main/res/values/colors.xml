@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#008577</color>
+    <color name="colorPrimaryDark">#00574B</color>
+    <color name="whiteback">#ffffff</color>
+    <color name="bodynavigationbar">#0e2a2a</color>
+    <color name="nocolor">#00ff0000</color>
+    <color name="fatcolor">#b446b8</color>
+    <color name="musclecolor">#3c57b8</color>
+    <color name="weightcolor">#28b8b8</color>
+    <color name="walkcolor">#b8b655</color>
+    <color name="bmicolor">#b89755</color>
+    <color name="kcalcolor">#b85755</color>
+    <color name="kcalbcolor">#87b855</color>
+    <color name="bottomback">#c3e29f</color>
+    <color name="main_text_color">#fffede</color>
+    <color name="bottom_back">#8941c0c1</color>
+    <color name="tabback">#ebb5e4a8</color>
+</resources>
