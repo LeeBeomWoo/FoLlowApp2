@@ -40,6 +40,7 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
+import android.widget.PopupWindow
 import android.widget.SeekBar
 import android.widget.Toast
 import android.widget.Toast.LENGTH_SHORT
@@ -96,6 +97,7 @@ class Camera : Fragment(),View.OnClickListener, SeekBar.OnSeekBarChangeListener,
     var video_camera:Boolean = false //false = camera, true = video
     var videoPath:String = ""
     var rotationListener: rotationListenerHelper? = null;
+    var popUpT: PopupWindow? = null
 
     private lateinit var cameraId: String
 
@@ -277,6 +279,14 @@ class Camera : Fragment(),View.OnClickListener, SeekBar.OnSeekBarChangeListener,
                         stopRecordingVideo()
                     }
                     closeCamera()
+                }
+            }
+            R.id.youtube_layout
+            ->{
+                if(URL == null){
+                    showToast(getString(R.string.not_connected_url))
+                    popUpT = PopupWindow(context)
+                    popUpT.
                 }
             }
         }

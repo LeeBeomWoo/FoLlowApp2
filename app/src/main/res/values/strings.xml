@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name" translatable="false">FoLlowApp</string>
-    <string name="camera_error" translatable="false">현재 사용되어진 기기는 카메라가 지원되지 않는 기기입니다.</string>
-    <string name="permission_request" translatable="false">권한상승</string>
+    <string name="camera_error" translatable="true">현재 사용되어진 기기는 카메라가 지원되지 않는 기기입니다.</string>
+    <string name="permission_request" translatable="true">권한상승</string>
+    <string name="not_connected_url" translatable="true">외부에서 링크를 공유하여 주십시요</string>
+    <string name="connectedurl" translatable="true">이곳에 연결하고자 하는 유튜브 \n영상의 주소를 입력하여 주세요</string>
 </resources>
