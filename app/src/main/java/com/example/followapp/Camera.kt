@@ -40,11 +40,8 @@ import android.webkit.WebChromeClient
 import android.webkit.WebSettings
 import android.webkit.WebView
 import android.webkit.WebViewClient
-import android.widget.PopupWindow
-import android.widget.SeekBar
-import android.widget.Toast
+import android.widget.*
 import android.widget.Toast.LENGTH_SHORT
-import android.widget.VideoView
 import cn.gavinliu.android.lib.scale.ScaleRelativeLayout
 import com.example.followapp.cameraapi.AutoFitTextureView
 import com.example.followapp.cameraapi.rotationListenerHelper
@@ -286,7 +283,34 @@ class Camera : Fragment(),View.OnClickListener, SeekBar.OnSeekBarChangeListener,
                 if(URL == null){
                     showToast(getString(R.string.not_connected_url))
                     popUpT = PopupWindow(context)
-                    popUpT.
+                  layout = LinearLayout(context);
+                  mainLayout = new LinearLayout(context);
+                  tv = new TextView(context);
+                  but = new Button(context);
+                  but.setText("Click Me");
+                  but.setOnClickListener(new OnClickListener() {
+
+                   public void onClick(View v) {
+                    if (click) {
+                     popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
+                     popUp.update(50, 50, 300, 80);
+                     click = false;
+                    } else {
+                     popUp.dismiss();
+                     click = true;
+                    }
+                   }
+
+                  });
+                  params = LayoutParams(LayoutParams.WRAP_CONTENT,
+                    LayoutParams.WRAP_CONTENT);
+                  layout.setOrientation(LinearLayout.VERTICAL);
+                  tv.setText("Hi this is a sample text for popup window");
+                  layout.addView(tv, params);
+                  popUp.setContentView(layout);
+                  // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
+                  mainLayout.addView(but, params);
+                  setContentView(mainLayout);
                 }
             }
         }
