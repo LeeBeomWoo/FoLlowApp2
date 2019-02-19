@@ -19,19 +19,18 @@ import android.hardware.camera2.CameraDevice.TEMPLATE_RECORD
 import android.media.MediaPlayer
 import android.media.MediaRecorder
 import android.net.Uri
-import android.os.Bundle
-import android.os.Environment
-import android.os.Handler
-import android.os.HandlerThread
+import android.os.*
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.DialogFragment
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
 import android.support.v4.content.ContextCompat.getDrawable
+import android.support.v4.content.ContextCompat.getSystemService
 import android.support.v4.content.PermissionChecker.PERMISSION_GRANTED
 import android.support.v4.content.PermissionChecker.checkSelfPermission
 import android.support.v7.app.AlertDialog
+import android.transition.Slide
 import android.util.Log
 import android.util.Size
 import android.util.SparseIntArray
@@ -46,6 +45,7 @@ import cn.gavinliu.android.lib.scale.ScaleRelativeLayout
 import com.example.followapp.cameraapi.AutoFitTextureView
 import com.example.followapp.cameraapi.rotationListenerHelper
 import kotlinx.android.synthetic.main.fragment_camera.*
+import kotlinx.android.synthetic.main.gettext.*
 import java.io.File
 import java.io.IOException
 import java.lang.Long.signum
@@ -283,35 +283,48 @@ class Camera : Fragment(),View.OnClickListener, SeekBar.OnSeekBarChangeListener,
                 if(URL == null){
                     showToast(getString(R.string.not_connected_url))
                     popUpT = PopupWindow(context)
-                  layout = LinearLayout(context);
-                  mainLayout = new LinearLayout(context);
-                  tv = new TextView(context);
-                  but = new Button(context);
-                  but.setText("Click Me");
-                  but.setOnClickListener(new OnClickListener() {
+                    // Initialize a new layout inflater instance
+                    val inflater:LayoutInflater = getSystemService(context!!, javaClass) as LayoutInflater
 
-                   public void onClick(View v) {
-                    if (click) {
-                     popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
-                     popUp.update(50, 50, 300, 80);
-                     click = false;
-                    } else {
-                     popUp.dismiss();
-                     click = true;
+                    // Inflate a custom view using layout inflater
+                    val view = inflater.inflate(R.layout.gettext,null)
+
+                    // Set an elevation for the popup window
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        popUpT!!.elevation = 10.0F
                     }
-                   }
+                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.M){
+                        // Create a new slide animation for popup window enter transition
+                        val slideIn = Slide()
+                        slideIn.slideEdge = Gravity.TOP
+                        popUpT!!.enterTransition = slideIn
 
-                  });
-                  params = LayoutParams(LayoutParams.WRAP_CONTENT,
-                    LayoutParams.WRAP_CONTENT);
-                  layout.setOrientation(LinearLayout.VERTICAL);
-                  tv.setText("Hi this is a sample text for popup window");
-                  layout.addView(tv, params);
-                  popUp.setContentView(layout);
-                  // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10);
-                  mainLayout.addView(but, params);
-                  setContentView(mainLayout);
+                        // Slide animation for popup window exit transition
+                        val slideOut = Slide()
+                        slideOut.slideEdge = Gravity.RIGHT
+                        popUpT!!.exitTransition = slideOut
+
+                    }
+
+                  // popUp.showAtLocation(layout, Gravity.BOTTOM, 10, 10)
+                    val popUpT = PopupWindow(
+                        view, // Custom view to show in popup window
+                        LinearLayout.LayoutParams.WRAP_CONTENT, // Width of popup window
+                        LinearLayout.LayoutParams.WRAP_CONTENT // Window height
+                    )
+                    popUpT!!.showAtLocation(rootlayout, Gravity.BOTTOM, 10, 10)
+                    popUpT!!.update(50, 50, 300, 80)
                 }
+            }
+            R.id.ok_Btn
+                    ->{
+                param1 = urlText.text.toString()
+                URL = FURL + CHANGE + param1 + BURL
+                popUpT!!.dismiss()
+            }
+            R.id.cancel_Btn
+                    ->{
+                popUpT!!.dismiss()
             }
         }
     }
@@ -551,7 +564,6 @@ class Camera : Fragment(),View.OnClickListener, SeekBar.OnSeekBarChangeListener,
         settings.setUseWideViewPort(true)
         URL = FURL + CHANGE + param1 + BURL
         webview.loadData(URL, "text/html", "charset=utf-8");
-
         alpha_control.setOnSeekBarChangeListener(this)
         video_View.setOnCompletionListener(object :MediaPlayer.OnCompletionListener{
             override fun onCompletion(p0: MediaPlayer?) {
