@@ -16,4 +16,5 @@
     <color name="main_text_color">#fffede</color>
     <color name="bottom_back">#8941c0c1</color>
     <color name="tabback">#ebb5e4a8</color>
+    <color name="colorAccent">#EBF4FFF0</color>
 </resources>
